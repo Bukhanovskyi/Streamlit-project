@@ -27,25 +27,31 @@ def predict(input_data: dict):
     return prediction, probability
 
 
-# Заголовок застосунку
-st.title('Прогноз дощу в Австралії')
-st.markdown('Це проста модель (логістична регресія) для прогнозування, \
-чи піде дощ завтра, на основі сьогоднішніх погодних показників.')
+# Application title
+st.title('Australian Rain Prediction')
+st.markdown(
+    'This is a simple Logistic Regression model that predicts '
+    'whether it will rain tomorrow based on today’s weather conditions.'
+)
 st.image('images/rain.png')
 
-# Відображення таблиці середніх значень
-st.header("Середні значення показників по містах")
+# Display the table with average values
+st.header("Average Weather Values by Location")
 weather_df = pd.read_csv("data/weatherAUS.csv")
 mean_values = weather_df.groupby('Location').mean(numeric_only=True).reset_index()
 st.dataframe(mean_values)
 
-# Заголовок секції з погодними показниками
-st.header("Погодні показники")
+# Separate field for location selection
+st.header("Location")
+location = st.selectbox('Location', sorted(weather_df['Location'].unique()))
+
+# Weather input section
+st.header("Weather Conditions")
 col1, col2 = st.columns(2)
 
-# Введення температури та опадів
+# Temperature and rainfall inputs
 with col1:
-    st.text("Температура та опади")
+    st.text("Temperature and Rainfall")
     min_temp = st.slider('MinTemp (°C)', -10.0, 35.0, 13.0)
     max_temp = st.slider('MaxTemp (°C)', 0.0, 50.0, 23.0)
     temp9am = st.slider('Temp9am (°C)', -5.0, 40.0, 17.0)
@@ -53,10 +59,9 @@ with col1:
     rainfall = st.slider('Rainfall (mm)', 0.0, 100.0, 0.0)
     rain_today = st.selectbox('RainToday', ['No', 'Yes'])
 
-# Введення вітру, вологості та тиску
+# Wind, humidity, and pressure inputs
 with col2:
-    st.text("Вітер, вологість, тиск")
-    location = st.selectbox('Location', sorted(weather_df['Location'].unique()))
+    st.text("Wind, Humidity, and Pressure")
     wind_gust_dir = st.selectbox('WindGustDir', sorted(weather_df['WindGustDir'].dropna().unique()))
     wind_dir_9am = st.selectbox('WindDir9am', sorted(weather_df['WindDir9am'].dropna().unique()))
     wind_dir_3pm = st.selectbox('WindDir3pm', sorted(weather_df['WindDir3pm'].dropna().unique()))
@@ -64,8 +69,8 @@ with col2:
     humidity_9am = st.slider('Humidity9am (%)', 0.0, 100.0, 70.0)
     humidity_3pm = st.slider('Humidity3pm (%)', 0.0, 100.0, 50.0)
 
-# Кнопка для прогнозування
-if st.button("Прогнозувати дощ"):
+# Prediction button
+if st.button("Predict Rain"):
     input_data = {
         'Location': location,
         'MinTemp': min_temp,
@@ -90,7 +95,9 @@ if st.button("Прогнозувати дощ"):
         'RainToday': rain_today,
     }
 
-    # Викликаємо функцію прогнозування
+    # Call the prediction function
     result, probability = predict(input_data)
-    st.write(f"Прогноз: {'Дощ буде' if result == 'Yes' else 'Дощу не буде'} "
-             f"(ймовірність дощу: {probability * 100:.1f}%)")
+    st.write(
+        f"Prediction: {'Rain is expected' if result == 'Yes' else 'No rain expected'} "
+        f"(Probability of rain: {probability * 100:.1f}%)"
+    )
