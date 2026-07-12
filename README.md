@@ -74,15 +74,3 @@ to product.
 Trained on the [Rain in Australia](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package)
 dataset from Kaggle, which contains ~10 years of daily weather observations
 from multiple Australian weather stations.
-
-## Possible Improvements
-
-- Add model performance metrics (ROC-AUC, confusion matrix) to the app.
-- Experiment with additional models (Random Forest, XGBoost) for comparison.
-- Add unit tests for the preprocessing pipeline.
-- Cache the dataset load with `st.cache_data` for faster reloads.
-
----
-
-*This project was built as a hands-on exercise in taking a trained ML model
-from a notebook to a deployed, user-facing application.*
