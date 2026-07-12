@@ -68,16 +68,6 @@ to product.
    (`Yes`/`No`) along with the associated probability, which is displayed to
    the user.
 
-## Running Locally
-
-```bash
-git clone https://github.com/Bukhanovskyi/Streamlit-project.git
-cd Streamlit-project
-pip install -r requirements.txt
-streamlit run rain_app.py
-```
-
-The app will open at `http://localhost:8501`.
 
 ## Dataset
 
