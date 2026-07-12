@@ -4,8 +4,7 @@ A web application that predicts whether it will rain tomorrow at a given
 location in Australia, based on today's weather conditions. Built with
 **scikit-learn** and deployed as an interactive **Streamlit** app.
 
-**🔗 Live demo:** _add your Streamlit Cloud link here_
-**📂 Model training notebook:** (https://a34b9e6ce090a71c858877b1dd9d66375dc8c2c6.streamlit.app)
+**🔗 Live demo:** (https://a34b9e6ce090a71c858877b1dd9d66375dc8c2c6.streamlit.app)
 
 ---
 
